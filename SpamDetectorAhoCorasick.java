@@ -2,8 +2,11 @@ import java.util.*;
 
 public class SpamDetectorAhoCorasick {
     static class Node {
+        // Stores the immediate children of the node (key: character, value: child node)
         Map<Character, Node> children = new HashMap<>();
+        // The failure link of the node
         Node fail;
+
         List<String> outputs = new ArrayList<>();
     }
 
