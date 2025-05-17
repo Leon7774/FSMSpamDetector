@@ -54,9 +54,9 @@ public class SpamDetectorMML {
     );
 
     // Thresholds for state transitions
-    private static final int POTENTIAL_SPAM_THRESHOLD = 3;
-    private static final int LIKELY_SPAM_THRESHOLD = 5;
-    private static final int CONFIRMED_SPAM_THRESHOLD = 8;
+    private static final int POTENTIAL_SPAM_THRESHOLD = 2;
+    private static final int LIKELY_SPAM_THRESHOLD = 4;
+    private static final int CONFIRMED_SPAM_THRESHOLD = 6;
 
     public SpamDetectorMML() {
         resetFSM();
