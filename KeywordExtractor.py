@@ -20,7 +20,7 @@ filipino_stopwords = {
 all_stopwords = set(stopwords.words('english')) | filipino_stopwords
 
 # Load the CSV
-df = pd.read_csv("SPAM_SMS.csv")  # replace with your filename
+df = pd.read_csv("spam.csv")  # replace with your filename
 
 # Make sure 'text' column exists
 if "text" not in df.columns:

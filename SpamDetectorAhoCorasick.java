@@ -2,20 +2,56 @@ import java.util.*;
 
 public class SpamDetectorAhoCorasick {
     static class Node {
-        // Stores the immediate children of the node (key: character, value: child node)
         Map<Character, Node> children = new HashMap<>();
-        // The failure link of the node
         Node fail;
-
         List<String> outputs = new ArrayList<>();
     }
 
     private Node root;
 
+    private static final Map<Character, char[]> substitutions = new HashMap<>() {{
+        put('a', new char[]{'a', '@', '4'});
+        put('e', new char[]{'e', '3'});
+        put('i', new char[]{'i', '1', '!'});
+        put('o', new char[]{'o', '0'});
+        put('s', new char[]{'s', '$', '5'});
+        put('l', new char[]{'l', '1', '|'});
+        put('t', new char[]{'t', '7'});
+        put('n', new char[]{'n'});
+        put('w', new char[]{'w'});
+        put('r', new char[]{'r'});
+    }};
+
     public SpamDetectorAhoCorasick(List<String> keywords) {
         root = new Node();
-        buildTrie(keywords);
+
+        Set<String> allVariants = new HashSet<>();
+        for (String keyword : keywords) {
+            allVariants.addAll(generateVariants(keyword.toLowerCase()));
+        }
+
+        buildTrie(new ArrayList<>(allVariants));
         buildFailureLinks();
+    }
+
+    private Set<String> generateVariants(String word) {
+        Set<String> variants = new HashSet<>();
+        backtrackGenerate(word.toCharArray(), 0, new char[word.length()], variants);
+        return variants;
+    }
+
+    private void backtrackGenerate(char[] word, int index, char[] current, Set<String> variants) {
+        if (index == word.length) {
+            variants.add(new String(current));
+            return;
+        }
+
+        char c = word[index];
+        char[] subs = substitutions.getOrDefault(c, new char[]{c});
+        for (char sub : subs) {
+            current[index] = sub;
+            backtrackGenerate(word, index + 1, current, variants);
+        }
     }
 
     private void buildTrie(List<String> keywords) {
@@ -32,7 +68,6 @@ public class SpamDetectorAhoCorasick {
         Queue<Node> queue = new LinkedList<>();
         root.fail = root;
 
-        // Initialize fail links of root's children to root
         for (Node child : root.children.values()) {
             child.fail = root;
             queue.add(child);
@@ -57,9 +92,11 @@ public class SpamDetectorAhoCorasick {
         }
     }
 
-    public List<String> search(String text) {
-        List<String> results = new ArrayList<>();
+    // Returns spam weight and matched words as a Map<String, Integer> (word -> count)
+    public Map<String, Integer> searchWithMatches(String text) {
+        Map<String, Integer> matches = new HashMap<>();
         Node node = root;
+        text = text.toLowerCase();
 
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
@@ -70,25 +107,50 @@ public class SpamDetectorAhoCorasick {
 
             node = node.children.getOrDefault(c, root);
 
-            if (!node.outputs.isEmpty()) {
-                results.addAll(node.outputs);
+            for (String output : node.outputs) {
+                matches.put(output, matches.getOrDefault(output, 0) + 1);
             }
         }
 
-        return results;
+        return matches;
     }
 
-    // Test example
     public static void main(String[] args) {
-        List<String> spamKeywords = Arrays.asList("free", "winner", "prize", "claim", "urgent", "offer");
-        SpamDetectorAhoCorasick aho = new SpamDetectorAhoCorasick(spamKeywords);
+        Scanner scanner = new Scanner(System.in);
 
-        String testSms = "Congratulations! You are a winner! Claim your free prize now!";
-        List<String> found = aho.search(testSms.toLowerCase());
+        List<String> spamKeywords = Arrays.asList("bonus", "get", "free", "100", "win", "deposit", "claim", "real", "cash", "account", "makukuha", "join", "gcash", "daily", "iyong", "new", "libreng", "please", "deposito", "libre", "manalo", "winner");
 
-        System.out.println("Detected spam keywords:");
-        for (String keyword : found) {
-            System.out.println(keyword);
+        SpamDetectorAhoCorasick detector = new SpamDetectorAhoCorasick(spamKeywords);
+
+        while(true) {
+            System.out.println("Enter a message to check for spam:");
+            String input = scanner.nextLine();
+
+            if(input.equals("q") || input.equals("quit") || input.equals("exit")) {
+                break;
+            }
+
+            Map<String, Integer> results = detector.searchWithMatches(input.toLowerCase());
+
+            int spamWeight = results.values().stream().mapToInt(Integer::intValue).sum();
+
+            System.out.println("\nSpam weight: " + spamWeight);
+            System.out.println("Matched words and counts:");
+            results.forEach((word, count) -> System.out.println("  " + word + ": " + count));
+
+            String spamLevel;
+            if (spamWeight == 0) {
+                spamLevel = "Not spam";
+            } else if (spamWeight <= 2) {
+                spamLevel = "Likely spam";
+            } else if (spamWeight <= 4) {
+                spamLevel = "Most likely spam";
+            } else {
+                spamLevel = "Definite spam";
+            }
+            System.out.println("Spam Level: " + spamLevel + "\n");
+
         }
+
     }
 }
