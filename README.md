@@ -1,6 +1,6 @@
 # Finite State Machine SMS Spam Detector Algorithm
 
-Authors:
+Authors:\
 Galileon A. Destura\
 Gianfranco Miguel Fernandez
 
