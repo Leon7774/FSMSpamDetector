@@ -1,7 +1,7 @@
 # Finite State Machine SMS Spam Detector Algorithm
 
 Authors:
-Galileon A. Destura
+Galileon A. Destura\
 Gianfranco Miguel Fernandez
 
 This is a Spam Detector using Finite State Machine (FSM) theory and Aho-Corasick algorithm.
