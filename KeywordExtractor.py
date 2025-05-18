@@ -35,7 +35,7 @@ for line in df["text"].dropna():
             words.append(word)
 
 # Count and print most common
-top_words = Counter(words).most_common(20)
+top_words = Counter(words).most_common(30)
 print("Most common spam-related words:")
 for word, count in top_words:
     print(f"{word}: {count}")

@@ -118,7 +118,12 @@ public class SpamDetectorAhoCorasick {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        List<String> spamKeywords = Arrays.asList("bonus", "get", "free", "100", "win", "deposit", "claim", "real", "cash", "account", "makukuha", "join", "gcash", "daily", "iyong", "new", "libreng", "please", "deposito", "libre", "manalo", "winner");
+        List<String> spamKeywords = Arrays.asList(
+            "bonus", "get", "free", "100", "win", "deposit", "claim",
+            "real", "cash", "account", "makukuha", "join", "gcash",
+            "daily", "iyong", "new", "libreng", "please", "deposito",
+            "libre", "manalo", "winner", "play", "day", "visit", "sign", "ka", "pesos", "register", "enjoy", "welcome", "deposito", "libreng", "daily"
+        );
 
         SpamDetectorAhoCorasick detector = new SpamDetectorAhoCorasick(spamKeywords);
 

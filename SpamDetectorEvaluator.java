@@ -9,7 +9,7 @@ public class SpamDetectorEvaluator {
             "bonus", "get", "free", "100", "win", "deposit", "claim",
             "real", "cash", "account", "makukuha", "join", "gcash",
             "daily", "iyong", "new", "libreng", "please", "deposito",
-            "libre", "manalo", "winner"
+            "libre", "manalo", "winner", "play", "day", "visit", "sign", "ka", "pesos", "register", "enjoy", "welcome", "deposito", "libreng", "daily"
         );
 
         String csvPath;
@@ -62,7 +62,7 @@ public class SpamDetectorEvaluator {
                 }
 
                 // Simplify predicted label to binary spam or not spam for accuracy test
-                boolean predictedSpam = spamWeight > 0;
+                boolean predictedSpam = spamWeight > 1;
                 boolean actualSpam = label.equals("true") || label.equals("yes") || label.equals("1");
 
                 if (predictedSpam == actualSpam) {
