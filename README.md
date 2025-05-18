@@ -6,7 +6,7 @@ Gianfranco Miguel Fernandez
 
 This is a Spam Detector using Finite State Machine (FSM) theory and Aho-Corasick algorithm.
 
-To test the program, run:
+To test the program, run SpamDetectorEvaluator.java in your IDE, or run the following in your terminal:
 
 ```
 SpamDetectorEvaluator.java
