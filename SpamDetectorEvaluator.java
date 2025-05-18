@@ -19,7 +19,7 @@ public class SpamDetectorEvaluator {
         if (args.length < 1) {
             // Change this to the dataset you want to use
             // The dataset needs to have the following columns: (text, spam)
-            csvPath = "accuracy-test.csv";
+            csvPath = "accuracy-test2.csv";
         }else{
             // If an argument exists, use this as the dataset
             csvPath = args[0];
@@ -51,11 +51,11 @@ public class SpamDetectorEvaluator {
                 int spamWeight = matches.values().stream().mapToInt(Integer::intValue).sum();
 
                 String predictedSpamLevel;
-                if (spamWeight == 0) {
+                if (spamWeight <=1 ) {
                     predictedSpamLevel = "not spam";
-                } else if (spamWeight <= 2) {
+                } else if (spamWeight <= 3) {
                     predictedSpamLevel = "likely spam";
-                } else if (spamWeight <= 4) {
+                } else if (spamWeight <= 5) {
                     predictedSpamLevel = "most likely spam";
                 } else {
                     predictedSpamLevel = "definite spam";
