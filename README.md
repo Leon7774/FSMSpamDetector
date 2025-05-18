@@ -8,6 +8,14 @@ This is a Spam Detector using Finite State Machine (FSM) theory and Aho-Corasick
 
 To test the program, run:
 
-```SpamDetectorEvaluator.java.```
+```
+SpamDetectorEvaluator.java
+```
 
-Optionally, you can use ```java SpamDetectorEvaluator.java (path to dataset)``` to use a different dataset. The dataset needs to have the following columns: (text, spam).
+Optionally, you can use 
+
+```
+java SpamDetectorEvaluator.java (path to dataset)
+```
+
+to use a different dataset. The dataset needs to have the following columns: (text, spam).
