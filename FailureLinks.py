@@ -107,7 +107,7 @@ keywords = [
     "daily", "iyong", "new", "libreng", "please", "deposito",
     "libre", "manalo", "winner", "play", "day", "visit", "sign",
     "ka", "pesos", "register", "enjoy", "welcome", "deposito",
-    "libreng", "daily"
+    "libreng"
 ]
 
 # Remove duplicates while preserving order

@@ -19,7 +19,7 @@ public class SpamDetectorEvaluator {
         if (args.length < 1) {
             // Change this to the dataset you want to use
             // The dataset needs to have the following columns: (text, spam)
-            csvPath = "accuracy-test2.csv";
+            csvPath = "Test2.csv";
         }else{
             // If an argument exists, use this as the dataset
             csvPath = args[0];
@@ -39,7 +39,7 @@ public class SpamDetectorEvaluator {
             }
 
             while ((line = br.readLine()) != null) {
-                // Assuming CSV format: text,is_spam
+                // CSV Format must be (text, isSpam)
                 // and that text can contain commas, so we split only on last comma
                 int lastComma = line.lastIndexOf(',');
                 if (lastComma == -1) continue;
@@ -61,7 +61,7 @@ public class SpamDetectorEvaluator {
                     predictedSpamLevel = "definite spam";
                 }
 
-                // Simplify predicted label to binary spam or not spam for accuracy test
+                // SPAM SENSITIVITY
                 boolean predictedSpam = spamWeight > 1;
                 boolean actualSpam = label.equals("true") || label.equals("yes") || label.equals("1");
 
