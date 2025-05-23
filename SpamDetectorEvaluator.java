@@ -4,7 +4,6 @@ import java.util.*;
 public class SpamDetectorEvaluator {
 
     public static void main(String[] args) {
-        // Replace with your spam keywords, same as in your SpamDetectorAhoCorasick
         List<String> spamKeywords = Arrays.asList(
             "bonus", "get", "free", "100", "win", "deposit", "claim",
             "real", "cash", "account", "makukuha", "join", "gcash",
@@ -40,7 +39,6 @@ public class SpamDetectorEvaluator {
 
             while ((line = br.readLine()) != null) {
                 // CSV Format must be (text, isSpam)
-                // and that text can contain commas, so we split only on last comma
                 int lastComma = line.lastIndexOf(',');
                 if (lastComma == -1) continue;
 
